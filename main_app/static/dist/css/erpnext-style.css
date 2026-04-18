@@ -6,7 +6,7 @@
   --success-color: #28a745;
   --danger-color: #dc3545;
   --warning-color: #ffc107;
-  --info-color: #17a2b8;
+  --info-color: #C76E00;
   --light-color: #f8f9fc;
   --dark-color: #262626;
   --border-color: #d1d8dd;
@@ -1091,7 +1091,7 @@ body.dark-mode {
   --success-color: #28a745;
   --warning-color: #ffc107;
   --danger-color: #dc3545;
-  --info-color: #17a2b8;
+  --info-color: #C76E00;
   --light-color: #404040;
   --secondary-color: #6c757d;
 }
@@ -1901,7 +1901,7 @@ body.dark-mode {
 /* SaaS Dashboard Premium Upgrade - Dark Tech Theme / Glassmorphism */
 
 :root {
-  --primary-color: #00f2fe;
+  --primary-color: #C76E00;
   --success-color: #4cff6a;
 }
 
@@ -1933,7 +1933,7 @@ body.dark-mode {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #00f2fe, #4cff6a) !important;
+  background: linear-gradient(90deg, #C76E00, #4cff6a) !important;
   opacity: 1;
 }
 
@@ -1952,7 +1952,7 @@ body.dark-mode {
 }
 .stat-card:hover {
   transform: scale(1.03) translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 242, 254, 0.15) !important;
+  box-shadow: 0 12px 30px rgba(199, 110, 0, 0.15) !important;
 }
 .stat-card:hover .stat-icon {
   transform: rotate(15deg) scale(1.15);
@@ -1963,28 +1963,28 @@ body.dark-mode {
 
 /* Sidebar glowing active indicator */
 .dark-mode .nav-link.active {
-  background: linear-gradient(90deg, rgba(0, 242, 254, 0.15), transparent) !important;
-  border-left: 3px solid #00f2fe !important;
-  box-shadow: -4px 0 10px rgba(0, 242, 254, 0.4);
+  background: linear-gradient(90deg, rgba(199, 110, 0, 0.15), transparent) !important;
+  border-left: 3px solid #C76E00 !important;
+  box-shadow: -4px 0 10px rgba(199, 110, 0, 0.4);
 }
 
 /* Light mode sidebar active */
 .nav-link.active {
-  border-left: 3px solid #00f2fe !important;
-  background: linear-gradient(90deg, rgba(0, 242, 254, 0.1), transparent) !important;
+  border-left: 3px solid #C76E00 !important;
+  background: linear-gradient(90deg, rgba(199, 110, 0, 0.1), transparent) !important;
 }
 
 /* Buttons with gradients */
 .btn-primary {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%) !important;
+  background: linear-gradient(135deg, #C76E00 0%, #eb8c00 100%) !important;
   border: none !important;
-  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(199, 110, 0, 0.4) !important;
   transition: all 0.3s ease !important;
   border-radius: 8px !important;
 }
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6) !important;
+  box-shadow: 0 6px 20px rgba(199, 110, 0, 0.6) !important;
 }
 
 .btn-success {
@@ -2015,11 +2015,11 @@ body.dark-mode {
 }
 .table tbody tr:hover {
   transform: scale(1.01);
-  background-color: rgba(0, 242, 254, 0.05) !important;
+  background-color: rgba(199, 110, 0, 0.05) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 .dark-mode .table tbody tr:hover {
-  background-color: rgba(0, 242, 254, 0.1) !important;
+  background-color: rgba(199, 110, 0, 0.1) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 .table td, .table th {
@@ -2051,8 +2051,8 @@ body.dark-mode {
   color: #fff !important;
 }
 .form-control:focus {
-  border-color: #00f2fe !important;
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.3) !important;
+  border-color: #C76E00 !important;
+  box-shadow: 0 0 10px rgba(199, 110, 0, 0.3) !important;
 }
 .dark-mode .form-control:focus {
   background: rgba(255,255,255,0.1) !important;

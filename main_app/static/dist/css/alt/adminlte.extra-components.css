@@ -706,13 +706,13 @@
 }
 
 .direct-chat-info .right > .direct-chat-text {
-  background: #17a2b8;
-  border-color: #17a2b8;
+  background: #C76E00;
+  border-color: #C76E00;
   color: #ffffff;
 }
 
 .direct-chat-info .right > .direct-chat-text::after, .direct-chat-info .right > .direct-chat-text::before {
-  border-left-color: #17a2b8;
+  border-left-color: #C76E00;
 }
 
 .direct-chat-warning .right > .direct-chat-text {
@@ -906,13 +906,13 @@
 }
 
 .direct-chat-cyan .right > .direct-chat-text {
-  background: #17a2b8;
-  border-color: #17a2b8;
+  background: #C76E00;
+  border-color: #C76E00;
   color: #ffffff;
 }
 
 .direct-chat-cyan .right > .direct-chat-text::after, .direct-chat-cyan .right > .direct-chat-text::before {
-  border-left-color: #17a2b8;
+  border-left-color: #C76E00;
 }
 
 .direct-chat-white .right > .direct-chat-text {
