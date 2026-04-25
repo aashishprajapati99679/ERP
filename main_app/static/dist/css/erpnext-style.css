@@ -22,7 +22,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  background: linear-gradient(135deg, #FFE4B5, #FFB347, #FFAE42, #FBCEB1, #FDBCB4, #E2725B) fixed;
+  background: url('../../image/mapel.jpg') center/cover fixed no-repeat;
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -30,8 +30,8 @@ body {
 }
 
 body.dark-mode {
-  background: #1a202c !important;
-  /* Ensure dark mode works */
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('../../image/mapel.jpg') center/cover fixed no-repeat !important;
+  /* Ensure dark mode works with image */
 }
 
 /* Header/Navbar */
@@ -1928,10 +1928,13 @@ body.dark-mode {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
 }
 
-.erpnext-card::before, .stat-card::before {
+.erpnext-card::before,
+.stat-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 4px;
   background: linear-gradient(90deg, #C76E00, #4cff6a) !important;
   opacity: 1;
@@ -1942,6 +1945,7 @@ body.dark-mode {
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
   border-radius: 12px;
 }
+
 .erpnext-card:hover {
   transform: scale(1.01) translateY(-4px);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -1950,13 +1954,16 @@ body.dark-mode {
 .stat-card {
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
+
 .stat-card:hover {
   transform: scale(1.03) translateY(-6px);
   box-shadow: 0 12px 30px rgba(199, 110, 0, 0.15) !important;
 }
+
 .stat-card:hover .stat-icon {
   transform: rotate(15deg) scale(1.15);
 }
+
 .stat-icon {
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1982,6 +1989,7 @@ body.dark-mode {
   transition: all 0.3s ease !important;
   border-radius: 8px !important;
 }
+
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.02) !important;
   box-shadow: 0 6px 20px rgba(199, 110, 0, 0.6) !important;
@@ -1994,6 +2002,7 @@ body.dark-mode {
   transition: all 0.3s ease !important;
   border-radius: 8px !important;
 }
+
 .btn-success:hover {
   transform: translateY(-2px) scale(1.02) !important;
   box-shadow: 0 6px 20px rgba(76, 255, 106, 0.6) !important;
@@ -2004,35 +2013,46 @@ body.dark-mode {
   border-collapse: separate;
   border-spacing: 0 8px;
 }
+
 .table tbody tr {
   transition: all 0.2s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
   border-radius: 8px;
 }
+
 .dark-mode .table tbody tr {
   background: rgba(255, 255, 255, 0.03) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .table tbody tr:hover {
   transform: scale(1.01);
   background-color: rgba(199, 110, 0, 0.05) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
+
 .dark-mode .table tbody tr:hover {
   background-color: rgba(199, 110, 0, 0.1) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-.table td, .table th {
+
+.table td,
+.table th {
   border: none !important;
 }
-.table td:first-child, .table th:first-child {
+
+.table td:first-child,
+.table th:first-child {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-.table td:last-child, .table th:last-child {
+
+.table td:last-child,
+.table th:last-child {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
 .table th {
   text-transform: uppercase;
   font-size: 0.85rem;
@@ -2045,17 +2065,20 @@ body.dark-mode {
   border-radius: 8px !important;
   transition: all 0.3s ease !important;
 }
+
 .dark-mode .form-control {
-  background: rgba(255,255,255,0.05) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: #fff !important;
 }
+
 .form-control:focus {
   border-color: #C76E00 !important;
   box-shadow: 0 0 10px rgba(199, 110, 0, 0.3) !important;
 }
+
 .dark-mode .form-control:focus {
-  background: rgba(255,255,255,0.1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Base fade-in transition */
@@ -2063,11 +2086,13 @@ body.dark-mode {
   opacity: 0;
   animation: smoothFadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
+
 @keyframes smoothFadeIn {
   from {
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

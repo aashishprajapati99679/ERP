@@ -32,6 +32,7 @@ urlpatterns = [
     # Registration & Pending Approvals
     path("register/", views.student_register, name='student_register'),
     path("do_register/", views.do_student_register, name='do_student_register'),
+    path("verify_otp/", views.verify_otp, name='verify_otp'),
     path("student_applications/", hod_views.student_applications, name='student_applications'),
     path("approve_student/<int:id>/", hod_views.approve_student, name='approve_student'),
     path("reject_student/<int:id>/", hod_views.reject_student, name='reject_student'),

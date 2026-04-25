@@ -6,13 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}College ERP - Dashboard{% endblock title %}</title>
-    
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static '/image/favicon1.ico' %}">
+    <title>{% block title %}Nersha ERP - Dashboard{% endblock title %}</title>
     
     <!-- ERPNext Style CSS -->
-    <link rel="stylesheet" href="{% static 'dist/css/erpnext-style.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/erpnext-style.css' %}?v=1.2">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
@@ -34,7 +31,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <a href="{% if user.user_type == '1' %}{% url 'admin_home' %}{% elif user.user_type == '2' %}{% url 'staff_home' %}{% else %}{% url 'student_home' %}{% endif %}" class="navbar-brand">
-                College ERP
+                Nersha ERP
             </a>
         </div>
         

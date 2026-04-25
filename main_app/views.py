@@ -1,5 +1,8 @@
 import json
 import requests
+import random
+from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
@@ -97,32 +100,107 @@ def do_student_register(request):
         return redirect('student_register')
         
     try:
-        course = Course.objects.get(id=course_id)
-        batch = Session.objects.get(id=session_id)
+        # Generate OTP
+        otp = str(random.randint(100000, 999999))
         
-        pending_student = PendingStudent(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            mobile_number=mobile,
-            aadhaar_number=aadhaar_number,
-            course_type=course,
-            batch=batch,
-            password=make_password(password),
-            status='pending'
-        )
-        
+        # Save Aadhaar image temporarily if exists
+        aadhaar_filename = ""
         if aadhaar_image:
             fs = FileSystemStorage()
-            filename = fs.save('aadhaar_images/' + aadhaar_image.name, aadhaar_image)
-            pending_student.aadhaar_image = filename
+            aadhaar_filename = fs.save('aadhaar_images/' + aadhaar_image.name, aadhaar_image)
             
-        pending_student.save()
-        messages.success(request, "Registration successful! Your account is now under review by the Administrator.")
-        return redirect('/')
+        # Store in session
+        request.session['registration_data'] = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'mobile': mobile,
+            'aadhaar_number': aadhaar_number,
+            'course_id': course_id,
+            'session_id': session_id,
+            'password': password,
+            'aadhaar_filename': aadhaar_filename
+        }
+        request.session['registration_otp'] = otp
+        
+        # Send Email
+        html_content = f"""
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #2c7be5;">Nersha ERP System</h2>
+          <p>Hello <strong>{first_name} {last_name}</strong>,</p>
+          <p>Thank you for registering with <strong>Nersha ERP System</strong>.</p>
+          <p>To complete your registration, please use the One-Time Password (OTP) below:</p>
+          <h1 style="letter-spacing: 6px; color: #000;">{otp}</h1>
+          <p>This OTP is valid for <strong>5 minutes</strong>.</p>
+          <p style="color: red;"><strong>Warning:</strong> Do not share this OTP with anyone. Nersha ERP System will never ask for your OTP.</p>
+          <hr>
+          <p style="font-size: 12px; color: gray;">
+            If you did not initiate this request, please ignore this email.
+          </p>
+          <p>Regards,<br><strong>Nersha ERP System Team</strong></p>
+        </div>
+        """
+        send_mail(
+            subject="Nersha ERP System - Email Verification",
+            message=f"Your OTP is {otp}",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            html_message=html_content,
+            fail_silently=False,
+        )
+        
+        messages.success(request, "OTP sent to your email. Please verify.")
+        return redirect('verify_otp')
     except Exception as e:
         messages.error(request, f"Registration failed: {str(e)}")
         return redirect('student_register')
+
+
+def verify_otp(request):
+    if request.method == 'GET':
+        if 'registration_data' not in request.session:
+            messages.error(request, "No pending registration found.")
+            return redirect('student_register')
+        return render(request, 'main_app/verify_otp.html')
+        
+    elif request.method == 'POST':
+        user_otp = request.POST.get('otp')
+        session_otp = request.session.get('registration_otp')
+        
+        if str(user_otp) == str(session_otp):
+            # Success, save the PendingStudent to database
+            data = request.session.get('registration_data')
+            try:
+                course = Course.objects.get(id=data['course_id'])
+                batch = Session.objects.get(id=data['session_id'])
+                
+                pending_student = PendingStudent(
+                    first_name=data['first_name'],
+                    last_name=data['last_name'],
+                    email=data['email'],
+                    mobile_number=data['mobile'],
+                    aadhaar_number=data['aadhaar_number'],
+                    course_type=course,
+                    batch=batch,
+                    password=make_password(data['password']),
+                    status='pending',
+                    aadhaar_image=data['aadhaar_filename']
+                )
+                pending_student.save()
+                
+                # Clear session
+                del request.session['registration_data']
+                del request.session['registration_otp']
+                
+                messages.success(request, "Registration successful! Your account is now under review by the Administrator.")
+                return redirect('login_page')
+            except Exception as e:
+                messages.error(request, f"Error saving registration: {str(e)}")
+                return redirect('student_register')
+        else:
+            messages.error(request, "Invalid OTP. Please try again.")
+            return render(request, 'main_app/verify_otp.html')
+
 
 
 
