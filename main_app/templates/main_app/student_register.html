@@ -1,0 +1,336 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - Nersha ERP</title>
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --muted-color: #777;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url("{% static 'image/oglogin.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .login-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Form Side */
+        .form-side {
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-card {
+            width: 100%;
+        }
+
+        .header-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .header-section p {
+            color: var(--muted-color);
+            font-size: 1rem;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        .col-md-6, .col-md-12 {
+            padding: 0 10px;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .col-md-6 { width: 50%; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        
+        .form-group label .text-danger {
+            color: #dc3545;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            outline: none;
+            background: #fff;
+        }
+
+        .form-control:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 0 4px rgba(37, 117, 252, 0.1);
+        }
+
+        .btn-signin {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            background: var(--primary-gradient);
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 117, 252, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            color: #2575fc;
+        }
+
+        .error-messages {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .alert-error, .alert-danger {
+            background-color: #fff5f5;
+            color: #e53e3e;
+            border: 1px solid #fed7d7;
+        }
+        
+        .alert-success {
+            background-color: #f0fff4;
+            color: #38a169;
+            border: 1px solid #c6f6d5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <div class="form-side">
+            <div class="login-card">
+                <div class="header-section">
+                    <h1>Register Now</h1>
+                    <p>Submit your application to join the college</p>
+                </div>
+
+                <!-- Error Messages -->
+                {% if messages %}
+                <div class="error-messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Registration Form -->
+                <form action="{% url 'do_student_register' %}" method="post" enctype="multipart/form-data" id="register-form">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>First Name (as per Aadhaar) <span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" class="form-control" required placeholder="First Name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Last Name (as per Aadhaar) <span class="text-danger">*</span></label>
+                            <input type="text" name="last_name" class="form-control" required placeholder="Last Name">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Email Address <span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control" required placeholder="Enter email">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Mobile Number <span class="text-danger">*</span></label>
+                            <input type="text" name="mobile" class="form-control" required placeholder="Mobile number">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Course Type <span class="text-danger">*</span></label>
+                            <select name="course" class="form-control" required>
+                                <option value="">-- Select Course --</option>
+                                {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Batch <span class="text-danger">*</span></label>
+                            <select name="session" class="form-control" required>
+                                <option value="">-- Select Batch --</option>
+                                {% for session in sessions %}
+                                <option value="{{ session.id }}">{{ session.start_year|date:"Y" }} - {{ session.end_year|date:"Y" }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Aadhaar Number <span class="text-danger">*</span></label>
+                            <input type="text" name="aadhaar_number" class="form-control" minlength="12" maxlength="12" pattern="\d{12}" title="12-digit numeric Aadhaar number" required placeholder="XXXX XXXX XXXX">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Upload Aadhaar Image <span class="text-danger">*</span></label>
+                            <input type="file" name="aadhaar_image" class="form-control" accept="image/*" required style="padding: 9px 15px;">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" id="password" class="form-control" minlength="6" required placeholder="Create password">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Confirm Password <span class="text-danger">*</span></label>
+                            <input type="password" id="confirm_password" class="form-control" required placeholder="Confirm password">
+                        </div>
+                    </div>
+
+                    <!-- Modern Local Captcha -->
+                    <div class="form-group" style="background: rgba(0,0,0,0.03); padding: 15px; border-radius: var(--border-radius); border: 1px solid #efefef;">
+                        <label style="text-align: center; margin-bottom: 10px;">Security Verification <span class="text-danger">*</span></label>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                            <div style="font-size: 1.2rem; font-weight: 600; color: #2575fc; letter-spacing: 2px;">
+                                <span id="num1"></span> + <span id="num2"></span> =
+                            </div>
+                            <input type="text" id="captcha-answer" class="form-control" style="width: 100px; text-align: center; padding: 8px;" placeholder="?" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-signin">Submit Application</button>
+                    <a href="{% url 'login_page' %}" class="btn-back"><i class="fas fa-arrow-left" style="margin-right: 5px;"></i> Back to Sign In</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Generate Captcha
+            let n1 = Math.floor(Math.random() * 9) + 1;
+            let n2 = Math.floor(Math.random() * 9) + 1;
+            document.getElementById('num1').innerText = n1;
+            document.getElementById('num2').innerText = n2;
+
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                // Check passwords
+                let pass = document.getElementById('password').value;
+                let c_pass = document.getElementById('confirm_password').value;
+                if (pass !== c_pass) {
+                    e.preventDefault();
+                    alert("Passwords do not match!");
+                    return;
+                }
+                
+                // Check Captcha
+                let answer = parseInt(document.getElementById('captcha-answer').value);
+                if (answer !== (n1 + n2)) {
+                    e.preventDefault();
+                    alert("Security Verification failed. Please try again.");
+                    n1 = Math.floor(Math.random() * 9) + 1;
+                    n2 = Math.floor(Math.random() * 9) + 1;
+                    document.getElementById('num1').innerText = n1;
+                    document.getElementById('num2').innerText = n2;
+                    document.getElementById('captcha-answer').value = '';
+                    return;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
